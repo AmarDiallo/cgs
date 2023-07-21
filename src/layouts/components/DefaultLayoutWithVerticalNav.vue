@@ -95,6 +95,13 @@ const upgradeBanner = computed(() => {
       />
       <VerticalNavLink
         :item="{
+          title: 'Utilisateurs',
+          icon: 'bx-user',
+          to: '/users-list',
+        }"
+      />
+      <VerticalNavLink
+        :item="{
           title: 'Login',
           icon: 'bx-log-in',
           to: '/login',
