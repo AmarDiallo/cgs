@@ -9,7 +9,9 @@ import '@layouts/styles/index.scss'
 import '@styles/styles.scss'
 import axios from 'axios'
 import { createPinia } from 'pinia'
+import 'sweetalert2/dist/sweetalert2.min.css'
 import { createApp } from 'vue'
+import VueSweetalert2 from 'vue-sweetalert2'
 import store from './store'
 
 loadFonts()
@@ -38,6 +40,7 @@ app.use(vuetify)
 app.use(createPinia())
 app.use(router)
 app.use(store)
+app.use(VueSweetalert2)
 
 // Mount vue app
 app.mount('#app')
