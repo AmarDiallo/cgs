@@ -17,7 +17,7 @@
       </VCardText>
 
       <VCardText>
-        <VForm @submit.prevent="$router.push('/')">
+        <VForm @submit.prevent="onLoginUser">
           <VRow>
             <!-- email -->
             <VCol cols="12">
@@ -51,7 +51,7 @@
               </div>
 
               <!-- login button -->
-              <VBtn block type="submit"> Connexion </VBtn>
+              <VBtn block type="submit" :loading="loading"> Connexion </VBtn>
             </VCol>
 
             <!-- create account -->
@@ -69,9 +69,9 @@
             </VCol>
 
             <!-- auth providers -->
-            <VCol cols="12" class="text-center">
-              <AuthProvider />
-            </VCol>
+            <!-- <VCol cols="12" class="text-center"> -->
+            <!-- <AuthProvider /> -->
+            <!-- </VCol> -->
           </VRow>
         </VForm>
       </VCardText>
@@ -80,9 +80,9 @@
 </template>
 
 <script lang="ts">
-import AuthProvider from "@/views/pages/authentication/AuthProvider.vue";
+import useAuth from "@/services/authService.js";
 import logo from "@images/logo.svg?raw";
-import { defineComponent, reactive, ref } from "vue";
+import { defineComponent, onMounted, reactive, ref } from "vue";
 
 export default defineComponent({
   setup() {
@@ -93,10 +93,26 @@ export default defineComponent({
       remember: false,
     });
 
+    const { loading, formData, errorMessage, users, onLogin, onGetUsers } = useAuth();
+
+    onMounted(async () => {
+      await onGetUsers();
+    });
+
+    const onLoginUser = async () => {
+      formData.value = form;
+      console.log(formData.value);
+      await onLogin();
+    };
+
     return {
       isPasswordVisible,
       form,
+      loading,
+      errorMessage,
       logo,
+      users,
+      onLoginUser,
     };
   },
 });

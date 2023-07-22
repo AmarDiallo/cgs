@@ -10,6 +10,7 @@ const router = createRouter({
       children: [
         {
           path: 'dashboard',
+          name: 'dashboard',
           component: () => import('../pages/dashboard.vue'),
         },
         {
